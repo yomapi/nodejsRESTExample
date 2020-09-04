@@ -11,10 +11,9 @@ var config=require(path.join(__dirname,'..','../.config','jwt_config.json'))[ENV
 
 var login=async function(req,res,next){
     const {useremail,password}=req.body;
-    console.log(req.body);
-    console.log(useremail);
+
     User.findOne({
-        where:{useremail:useremail}
+        where:{useremail:useremail,password:password}
     }).then(result=>{
         console.log(result);
         const token=jwt.sign({
@@ -22,7 +21,7 @@ var login=async function(req,res,next){
             userEmail:result.useremail,
             userName:result.name
         },config.JWT_SECRET,{
-            expiresIn:"5m",
+            expiresIn:"30m",
             issuer:"YoMaPi"
         })
         return res.status(200).json({

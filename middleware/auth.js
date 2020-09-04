@@ -21,4 +21,7 @@ var verifyToken=function(req,res,next){
         })
     }
 }
+
+
+
 module.exports={verifyToken};
